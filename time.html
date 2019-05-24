@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body>
+<script language="javascript">
+	function gettime(){
+		var limit = "3:00:00"; //Set ไว้ 3 ชั่วโมง
+		if (document.images){
+			var parselimit=limit.split(":");
+			parselimit=parselimit[0]*3600+parselimit[1]*60+parselimit[2]*1;
+			begintimer(parselimit);
+		}
+	}
+	
+	function begintimer(parselimit){
+		if (!document.images)
+		return
+		
+//---------Time=0----event------
+		if (parselimit==0){
+			alert("หมดเวลาแล้วค่ะ");
+			// parselimit = 10800;// 3 ชั่วโมง 
+			// begintimer();
+		}else{
+			parselimit-=1;
+			curhr = Math.floor(parselimit/3600); 
+			curmin=Math.floor(parselimit/60)%60;
+			cursec=parselimit%60;
+				
+//------------------------set 00----------------------
+			if(curhr < 10){
+				curhr = "0"+curhr;
+			}
+			if(curmin < 10 ){
+				curmin = "0"+curmin;
+			}
+			if(cursec < 10 ){
+				cursec = "0"+cursec;
+			}
+
+			curtime=+curhr+":"+curmin+":"+cursec; //รูปแบบแสดงผล 00:00:00
+
+			document.getElementById('d2').innerHTML = curtime; //แสดงผลที่ <div id='d2' ></div> 
+			setTimeout("begintimer("+parselimit+")",1000); // เอา onclick="gettime(); ไปใส่ในปุ่ม
+		}
+	}
+</script>
+<div id='d2' ></div> 
+    <input type="button" name="btn" id="btn" value="start" onclick="gettime();" />
+</body>
+</html>

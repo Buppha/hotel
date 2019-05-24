@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Timer</title>
+</head>
+<body>
+<script language="">
+function gettime(){
+    var limit = document.getElementById('txt').value;
+    if (document.images){
+    var parselimit=limit.split(":");
+	parselimit=parselimit[0]*3600+parselimit[1]*60+parselimit[2]*1;
+	begintimer(parselimit);
+    }
+}
+
+function begintimer(parselimit){
+    if (!document.images)
+    return
+    if (parselimit==0){
+        alert("ไล่ออกจากห้องได้เลยค่ะ");
+        parselimit = 10800; // 3 ชั่วโมง 
+		begintimer();
+    }else{
+        parselimit-=1;
+		curhr = Math.floor(parselimit/3600);
+		curmin=Math.floor(parselimit/60)%60;
+		cursec=parselimit%60;
+        if (curhr!=0){
+            curtime="เวลาที่เหลือ <font color=red> "+curhr+" </font>ชั่วโมง กับ <font color=red>"+curmin+" </font>นาที กับ <font color=red>"+cursec+" </font>วินาที "   
+        }
+        else
+        if (curmin!=0){
+            curtime="เวลาที่เหลือ <font color=red> "+curmin+" </font>นาที กับ <font color=red>"+cursec+" </font>วินาที "
+        }
+        else
+        if(cursec==0)
+        {
+            alert('ไล่ออกจากห้องได้เลยค่ะ อย่าลืมเก็บตังนะ');
+        }
+        else
+        {
+            curtime="เวลาที่เหลือ <font color=red>"+cursec+" </font>วินาที "
+        }
+    }
+        document.getElementById('play').innerHTML = curtime;
+        setTimeout("begintimer("+parselimit+")",1000);
+    }
+
+
+</script>
+<div id='play' ></div>
+
+     Time format "0:00:00": <input type="text" name="txt" id="txt" value="1:00:00" />
+    <input type="button" name="btn" id="btn" value="start" onclick="gettime();" />
+
+</body>
+</html>
